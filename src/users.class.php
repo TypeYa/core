@@ -2,6 +2,16 @@
 	/**
 	 * Users class
 	 *
+	 * @author Haris2201 <haris2201@gmail.com>
+	 */
+	
+	/**
+	 * Users class
+	 *
+	 * Base user informations controlled with this
+	 * functions.
+	 *
+	 * INFO
 	 * users.sql looks like this:
 	 *
 	 *  | id | username | password | token | registered | status |
@@ -9,11 +19,8 @@
 	 *  |    |          |          |       |            |        |
 	 *  | user id       | hashed password  | registration time
 	 *       | username            | random generated token
-	 *                  								| status [0/1/2/3]
-	 *
-	 * @author Haris2201 <haris2201@gmail.com>
+	 *                                                  | status [0/1/2/3]
 	 */
-	
 	class Users {
 		protected function add($username, $password) {
 			// TODO add user, generate token, write down
