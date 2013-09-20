@@ -39,7 +39,7 @@
 
 
 		/**
-		 * Add a new (activated) user
+		 * Adds a new (activated) user
 		 */
 		public function add($username, $password) {
 			if($this->exists($username)) {
@@ -86,7 +86,7 @@
 
 
 		/**
-		 * Remove a user
+		 * Removes a user
 		 */
 		public function remove($username) {
 			// Create statement
@@ -103,7 +103,7 @@
 
 
 		/**
-		 * Change the status from a user
+		 * Changes the status from a user
 		 */
 		public function status($username, $status = false) {
 			// false = get status, 0 = banned, 1 = active, 2 = pro, 3 = dev
@@ -134,7 +134,7 @@
 
 
 		/**
-		 * Return username by $id
+		 * Returns username by $id
 		 */
 		public function username($id) {
 			// Create statement
@@ -151,7 +151,7 @@
 
 
 		/**
-		 * Check if $username exists
+		 * Checks if $username exists
 		 */
 		public function exists($username) {
 			// Create statement
@@ -173,7 +173,7 @@
 
 
 		/**
-		 * Return id by $username
+		 * Returns id by $username
 		 */
 		public function id($username) {
 			// Create statement
@@ -241,7 +241,7 @@
 
 
 		/**
-		 * Return boolean if input is valid
+		 * Returns boolean if input is valid
 		 */
 		public function check($username, $password) {
 			// Hash $password with token
