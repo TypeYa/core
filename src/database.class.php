@@ -10,6 +10,9 @@
 	 *
 	 * We use a MySQL database server for storing messages, user datas,
 	 * files etc.
+	 *
+	 * The class is created with the intention to change the database
+	 * system from MySQL to an other if it's required.
 	 */
 	class Database {
 		/**
@@ -31,7 +34,7 @@
 		/**
 		 * The database password
 		 */
-		private static $dbpass = '********';
+		private static $dbpass = '';
 
 
 
@@ -50,6 +53,13 @@
 
 
 		/**
+		 * The Mysqli object
+		 */
+		protected $mysqli;
+
+
+
+		/**
 		 * The constructor method
 		 */
 		public function __construct() {
@@ -63,19 +73,20 @@
 		 * Protected connect function
 		 */
 		protected function connect() {
-			if(mysql_connect(self::$dbhost, self::$dbuser, self::$dbpass)) {
-				if(mysql_select_db(self::$dbname)) {
-					$this->connected = true;
-					return true;
-				}
-				else {
-					return false;	// Can't select database
-				}
+			if($this->connected) {
+				return true;	// Already connected
 			}
-			else {
+			$this->mysqli = new mysqli(self::$dbhost, self::$dbuser, self::$dbpass, self::$dbname);
+			if($this->mysqli->connect_errno) {
 				return false;	// Can't connect to server
 			}
+			else {
+				$this->connected = true;
+				return true;
+			}
 		}
+
+
 
 		/**
 		 * Returns boolean $connected
@@ -84,12 +95,14 @@
 			return $this->connected;
 		}
 
+
+
 		/**
 		 * Disconnects from the Database
 		 */
 		public function disconnect() {
 			if($this->connected) {
-				if(mysql_close()) {
+				if($this->mysqli->close()) {
 					$this->connected = false;
 					return true;
 				}
@@ -102,38 +115,41 @@
 			}
 		}
 
+
+
 		/**
-		 * Gets the row from $result
+		 * Sends a query to the database & returns result
 		 */
-		public function getRow($result) {
-			if(!is_resource($result)) {
-				return false;	// $result isn't a resource
-			}
-			if($row = mysql_fetch_array($result)) {
-				return $row;
+		public function query($query) {
+			if($result = $this->mysqli->query($query)) {
+				return $result;
 			}
 			else {
-				return false;	// Error
+				return false;
 			}
 		}
 
+
+
 		/**
-		 * Checks if one or more rows exist
+		 *  Prepares statement
 		 */
-		public function rowExists($result) {
-			if(mysql_num_rows($result) == 0) {
-				return false;	// Zero rows
+		public function getStatement($string) {
+			if($statement = $this->mysqli->prepare($string)) {
+				return $statement;
 			}
 			else {
-				return true;
+				return false;
 			}
 		}
+
+
 
 		/**
 		 * Function returns escaped $string (anti SQL injection)
 		 */
 		public function escapeString($string) {
-			return mysql_real_escape_string($string);
+			return $this->mysqli->escape_string($string);
 		}
 	}
 

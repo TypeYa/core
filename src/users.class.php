@@ -42,8 +42,8 @@
 		 * Add a new (activated) user
 		 */
 		protected function add($username, $password) {
-			if($this->exists($username) {
-				// $username already in user
+			if($this->exists($username)) {
+				// $username already in use
 				return false;
 			}
 
@@ -68,6 +68,19 @@
 
 			// Set status to 1 (active)
 			$status = 1;
+
+			// Create statement
+			$statement = $db->getStatement('INSERT INTO users (username,password,token,registered,status) VALUES(?, ?, ?, ?, ?)');
+			if($statement === false) return false;
+
+			// Bind and execute
+			$statement->bind_param('ssssi', $username, $password, $token, $registered, $status);
+			if($statement->execute()) {
+				return true;	// User created
+			}
+			else {
+				return false;	// Error
+			}
 		}
 
 
@@ -105,7 +118,19 @@
 		 * Check if $username exists
 		 */
 		public function exists($username) {
-			// TODO check if user exists
+			// Create statement
+			$statement = $this->database->getStatement('SELECT * FROM users WHERE (username=?)');
+
+			// Bind and execute statement
+			$statement->bind_param('s', $username);
+			$statement->execute();
+
+			if($statement->get_result()->num_rows === 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 
@@ -122,8 +147,8 @@
 		/**
 		 * Returns password for $username
 		 */
-		private function password($username) {
-			// TODO return password from user
+		protected function password($username) {
+			// TODO return user's password
 		}
 
 
@@ -131,8 +156,8 @@
 		/**
 		 * Returns token for $username
 		 */
-		private function token($username) {
-			// TODO return token from user
+		protected function token($username) {
+			// TODO return user's token
 		}
 
 

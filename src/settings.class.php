@@ -37,44 +37,45 @@
 
 
 		/**
-		 * String of table column DISPLAYNAME
+		 * String of table column STATUS
 		 */
 		public static $TY_SET_STATUS		= 'status';
 
 
 
 		/**
-		 * String of table column DISPLAYNAME
+		 * String of table column LOCATION
 		 */
 		public static $TY_SET_LOCATION		= 'location';
 
 
 
 		/**
-		 * String of table column DISPLAYNAME
+		 * String of table column LASTSEEN
 		 */
 		public static $TY_SET_LASTSEEN		= 'last_seen';
 
 
 
 		/**
-		 * String of table column DISPLAYNAME
+		 * String of table column LASTONLINE
 		 */
 		public static $TY_SET_LASTONLINE	= 'last_online';
 
 
 
 		/**
-		 * String of table column DISPLAYNAME
+		 * String of table column ONLINE
 		 */
 		public static $TY_SET_ONLINE		= 'online';
 
 
 
 		/**
-		 * String of table column DISPLAYNAME
+		 * String of table column PICTURE
 		 */
 		public static $TY_SET_PICTURE		= 'picture';
+
 
 
 		/**
