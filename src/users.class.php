@@ -89,7 +89,15 @@
 		 * Remove a user
 		 */
 		public function remove($username) {
-			// TODO remove user, messages and so on
+			// Create statement
+			$statement = $this->database->getStatement('DELETE FROM users WHERE (username=?)');
+
+			// Bind and execute statement
+			$statement->bind_param('s', $username);
+			$statement->execute();
+
+			// Return true
+			return true;
 		}
 
 
@@ -97,10 +105,30 @@
 		/**
 		 * Change the status from a user
 		 */
-		public function status($username, $status = 1) {
-			// TODO change user status
-			// INFO
-			// 0 = banned, 1 = active, 2 = pro, 3 = dev
+		public function status($username, $status = false) {
+			// false = get status, 0 = banned, 1 = active, 2 = pro, 3 = dev
+			if($status === false) {
+				// Create statement
+				$statement = $this->database->getStatement('SELECT status FROM users WHERE (username=?)');
+
+				// Bind and execute statement
+				$statement->bind_param('s', $username);
+				$statement->execute();
+
+				// Return status
+				return $statement->get_result()->fetch_array()[0];
+			}
+			else {
+				// Create statement
+				$statement = $this->database->getStatement('UPDATE users SET status=? WHERE username=?');
+
+				// Bind and execute statement
+				$statement->bind_param('is', $status, $username);
+				$statement->execute();
+
+				// Return true
+				return true;
+			}
 		}
 
 
@@ -109,7 +137,15 @@
 		 * Return username by $id
 		 */
 		public function username($id) {
-			// TODO return username by $id
+			// Create statement
+			$statement = $this->database->getStatement('SELECT username FROM users WHERE (id=?)');
+
+			// Bind and execute statement
+			$statement->bind_param('i', $id);
+			$statement->execute();
+
+			// Return id
+			return $statement->get_result()->fetch_array()[0];
 		}
 
 
@@ -140,7 +176,15 @@
 		 * Return id by $username
 		 */
 		public function id($username) {
-			// TODO return user id by $username
+			// Create statement
+			$statement = $this->database->getStatement('SELECT id FROM users WHERE (username=?)');
+
+			// Bind and execute statement
+			$statement->bind_param('s', $username);
+			$statement->execute();
+
+			// Return id
+			return $statement->get_result()->fetch_array()[0];
 		}
 
 
@@ -149,7 +193,15 @@
 		 * Returns password for $username
 		 */
 		protected function password($username) {
-			// TODO return user's password
+			// Create statement
+			$statement = $this->database->getStatement('SELECT password FROM users WHERE (username=?)');
+
+			// Bind and execute statement
+			$statement->bind_param('s', $username);
+			$statement->execute();
+
+			// Return password
+			return $statement->get_result()->fetch_array()[0];
 		}
 
 
@@ -158,7 +210,15 @@
 		 * Returns token for $username
 		 */
 		protected function token($username) {
-			// TODO return user's token
+			// Create statement
+			$statement = $this->database->getStatement('SELECT token FROM users WHERE (username=?)');
+
+			// Bind and execute statement
+			$statement->bind_param('s', $username);
+			$statement->execute();
+
+			// Return token
+			return $statement->get_result()->fetch_array()[0];
 		}
 
 
@@ -167,10 +227,15 @@
 		 * Changes password from user
 		 */
 		public function changePassword($username, $password) {
+			if(strlen($password) > 50 || strlen($password) < 6) {
+				// $password to short or to long
+				return false;
+			}
+
 			// Hash $password with token
 			$password = hash('sha256', $this->token($username) . $password);
 
-			//TODO save password in database
+			// TODO save password in database
 		}
 
 
