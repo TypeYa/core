@@ -41,7 +41,7 @@
 		/**
 		 * Add a new (activated) user
 		 */
-		protected function add($username, $password) {
+		public function add($username, $password) {
 			if($this->exists($username)) {
 				// $username already in use
 				return false;
@@ -70,7 +70,7 @@
 			$status = 1;
 
 			// Create statement
-			$statement = $db->getStatement('INSERT INTO users (username,password,token,registered,status) VALUES(?, ?, ?, ?, ?)');
+			$statement = $this->database->getStatement('INSERT INTO users (username,password,token,registered,status) VALUES(?, ?, ?, ?, ?)');
 			if($statement === false) return false;
 
 			// Bind and execute
@@ -88,7 +88,7 @@
 		/**
 		 * Remove a user
 		 */
-		protected function remove($username) {
+		public function remove($username) {
 			// TODO remove user, messages and so on
 		}
 
@@ -125,6 +125,7 @@
 			$statement->bind_param('s', $username);
 			$statement->execute();
 
+			// Check database for user
 			if($statement->get_result()->num_rows === 1) {
 				return true;
 			}
