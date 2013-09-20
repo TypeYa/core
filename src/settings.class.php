@@ -91,7 +91,7 @@
 		/**
 		 * Adds a user to the settings list
 		 */
-		public function add($id, $displayName = '', $status = 'I am new on TypeYa!', $location = '') {
+		public function add($id, $displayName = '', $status = 'I am new to TypeYa!', $location = '') {
 			if(strlen($displayName) > 50) {
 				$displayName = '';
 			}
@@ -123,14 +123,30 @@
 
 
 		/**
+		 * Removes user settings
+		 */
+		public function remove($id) {
+			// Create statement
+			$statement = $this->database->getStatement('DELETE FROM settings WHERE (id=?)');
+
+			// Bind and execute statement
+			$statement->bind_param('i', $id);
+			$statement->execute();
+
+			// Return true
+			return true;
+		}
+
+
+		/**
 		 * Gets value for settings $key
 		 */
 		public function get($id, $key) {
 			// Create statement
-			$statement = $this->database->getStatement('SELECT ? FROM settings WHERE (id=?)');
+			$statement = $this->database->getStatement('SELECT '.$this->database->escapeString($key).' FROM settings WHERE id=?');
 
 			// Bind and execute statement
-			$statement->bind_param('si', $key, $id);
+			$statement->bind_param('i', $id);
 			$statement->execute();
 
 			// Return status
@@ -144,10 +160,15 @@
 		 */
 		public function set($id, $key, $value) {
 			// Create statement
-			$statement = $this->database->getStatement('UPDATE users SET status=? WHERE username=?');
+			$statement = $this->database->getStatement('UPDATE settings SET '.$this->database->escapeString($key).'=? WHERE id=?');
 
 			// Bind and execute statement
-			$statement->bind_param('is', $status, $username);
+			if($key === self::$TY_SET_ONLINE) {
+				$statement->bind_param('ii', $value, $id);
+			}
+			else {
+				$statement->bind_param('si', $value, $id);
+			}
 			if($statement->execute()) {
 				return true;	// User settings edited
 			}
