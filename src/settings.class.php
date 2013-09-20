@@ -92,6 +92,18 @@
 		 * Adds a user to the settings list
 		 */
 		public function add($id, $displayName = '', $status = 'I am new to TypeYa!', $location = '') {
+			// Create statement
+			$statement = $this->database->getStatement('SELECT * FROM settings WHERE (id=?)');
+
+			// Bind and execute statement
+			$statement->bind_param('i', $id);
+			$statement->execute();
+
+			// Check database for user settings
+			if($statement->get_result()->num_rows !== 0) {
+				return false;	// Settings for user already exist
+			}
+
 			if(strlen($displayName) > 50) {
 				$displayName = '';
 			}
