@@ -1,24 +1,18 @@
 # TypeYa Core
 
-## What is TypeYa?
-TypeYa is an open-source chat-system designed for maximum security with minimum effort.
+TypeYa is an open-source chat-system designed for maximal security and minimal effort.
 
-## What is TypeYa.com?
-TypeYa.com is the official site of TypeYa and is running the latest stable version of it.
+TypeYa uses its own protocol called TypeChat, which is much faster than XMPP,
+used by Facebook, WhatsApp, Google, …
 
-## What is TypeYa.de?
-The German version of TypeYa.com.
+TypeYa will be available for all platforms:
+* There will be a web-interface at [typeya.com](https://typeya.com), and
+  [typeya.de](https://typeya.de)
+* There will be mobile apps for Apple's iOS and Google's Android.
 
-## What is TypeChat?
-TypeChat is an open-source protocol used by TypeYa.
-It's much faster than the xmpp protocol Facebook and WhatsApp use.
+### Contributing
+If you think you can improve something, don't hesitate to do a pull request on
+GitHub.
 
-## Why should I use TypeYa?
-TypeYa will be available for all platforms. That means you can chat form your iPhone and Android device without any problems.
-
-## How can I help?
-If you find any bugs or a bad part of code: contact us!
-You can also ask to join TypeYa and depending on your skills you may be one of us.
-
-## Contact
-github@typeya.com or (if you are German) github@typeya.de
+You may also send us an email at github@typeya.com, or contact us in our
+IRC-Channel at …
