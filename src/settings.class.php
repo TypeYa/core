@@ -22,11 +22,11 @@
 	 *                                          | time active on TypeYa
 	 *
 	 * 2/2
-	 *  | last_online | online |
-	 * -+-------------+--------+-
-	 *  |             |
-	 *  | timestamp of last time online
-	 *                | online status
+	 *  | last_online | online | email | phone |
+	 * -+-------------+--------+-------+-------+-
+	 *  |             |        |       |
+	 *  | last time online     | email address
+	 *                | online status  | phone number
 	 *
 	 */
 	class Settings {
@@ -76,6 +76,20 @@
 		 * String of table column ONLINE
 		 */
 		public static $TY_SET_ONLINE		= 'online';
+
+
+
+		/**
+		 * String of table column EMAIL
+		 */
+		public static $TY_SET_EMAIL			= 'email';
+
+
+
+		/**
+		 * String of table column PHONE
+		 */
+		public static $TY_SET_PHONE			= 'phone';
 
 
 
