@@ -6,8 +6,8 @@ TypeYa uses its own protocol called TypeChat, which is much faster than XMPP,
 used by Facebook, WhatsApp, Google, …
 
 TypeYa will be available for all platforms:
-* There will be a web-interface at (typeya.com)[https://typeya.com], and
-  (typeya.de)[https://typeya.de]
+* There will be a web-interface at [typeya.com](https://typeya.com), and
+  [typeya.de](https://typeya.de)
 * There will be mobile apps for Apple's iOS and Google's Android.
 
 ### Contributing
