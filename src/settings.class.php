@@ -132,12 +132,14 @@
 			$lastSeen = date("Y-m-d H:i:s", time());
 			$lastOnline = $lastSeen;
 			$online = 0;
+			$email = '';
+			$phone = '';
 
 			// Create statement
-			$statement = $this->database->getStatement('INSERT INTO settings (id,display_name,status,location,last_seen,last_online,online) VALUES(?, ?, ?, ?, ?, ?, ?)');
+			$statement = $this->database->getStatement('INSERT INTO settings (id,display_name,status,location,last_seen,last_online,online,email,phone) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)');
 
 			// Bind and execute
-			$statement->bind_param('isssssi', $id, $displayName, $status, $location, $lastSeen, $lastOnline, $online);
+			$statement->bind_param('isssssiss', $id, $displayName, $status, $location, $lastSeen, $lastOnline, $online, $email, $phone);
 			if($statement->execute()) {
 				return true;	// User settings created
 			}
