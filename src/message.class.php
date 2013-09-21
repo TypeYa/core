@@ -145,7 +145,7 @@
 			// Send message to everyones inbox
 			foreach($receivers as $receiver) {
 				// Create statement
-				$statement = $this->database->getStatement('INSERT INTO '.$this->database->escapeString($receiver).'_messages (`from`,`to`,type,content,time) VALUES(?, ?, ?, ?, ?)');	// From and to are special strings from MySQL
+				$statement = $this->database->getStatement('INSERT INTO '.$this->database->escapeString($receiver).'_messages (`from`,`to`,type,content,time) VALUES(?, ?, ?, ?, ?)');	// 'from' and 'to' are special strings from MySQL
 				if($statement === false) return false;
 
 				// Bind and execute statement

@@ -105,7 +105,7 @@
 		/**
 		 * Adds a user to the settings list
 		 */
-		public function add($id, $displayName = '', $status = 'I am new to TypeYa!', $location = '') {
+		public function add($id, $displayName = '', $status = 'I am new to TypeYa!', $location = '', $email = '', $phone = '') {
 			// Create statement
 			$statement = $this->database->getStatement('SELECT * FROM settings WHERE (id=?)');
 
@@ -127,13 +127,25 @@
 			if(strlen($location) > 30) {
 				$location = '';
 			}
+			if(strlen($email) > 100) {
+				$email = '';
+			}
+			if(strlen($phone) > 20) {
+				$phone = '';
+			}
+
+			// Validate e-mail address
+			if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $email)) {
+				//E-Mail address isn't valid
+			 	$email = '';
+			}
+
+			// TODO Check phone number
 
 			//Other settings
 			$lastSeen = date("Y-m-d H:i:s", time());
 			$lastOnline = $lastSeen;
 			$online = 0;
-			$email = '';
-			$phone = '';
 
 			// Create statement
 			$statement = $this->database->getStatement('INSERT INTO settings (id,display_name,status,location,last_seen,last_online,online,email,phone) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)');
